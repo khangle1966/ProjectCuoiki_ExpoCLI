@@ -1,30 +1,17 @@
-const [orders, setOrders] = useState([]);
-const [loading, setLoading] = useState(true);
+import { FlatList } from "react-native";
+import OrderList from "@/components/OrderList";
+import { useMyOrderList } from "@/api/orders";
+import React, { useEffect, useState } from 'react';
 
-useEffect(() => {
-  const fetchOrders = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("orders")
-        .select(`
-          id,
-          created_at,
-          total,
-          seat_number
-        `)
-        .order("created_at", { ascending: false });
+export default function OrderScreen() {
+  const {data: orders, isLoading, error} = useMyOrderList();
 
-      if (error) {
-        console.error("Error fetching orders:", error);
-      } else {
-        setOrders(data);
-      }
-    } catch (err) {
-      console.error("Unexpected error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  return (
+    <FlatList
+      data={orders}
+      renderItem={({ item }) => <OrderList order={item} />}
+      contentContainerStyle={{ gap: 10, padding: 10 }}
+    />
+  );
 
-  fetchOrders();
-}, []);
+}

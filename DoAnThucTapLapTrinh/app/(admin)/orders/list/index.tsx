@@ -141,11 +141,10 @@ export default function OrdersScreen() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FAF3E3', // Tone nâu nhẹ
   },
   loader: {
     flex: 1,
@@ -159,82 +158,90 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   errorText: {
-    color: '#FF4444',
+    color: '#D9534F', // Tone đỏ nâu
     fontSize: 16,
   },
   statsContainer: {
     flexDirection: 'row',
     padding: 15,
-    gap: 10,
+    gap: 15,
+    backgroundColor: '#F4E1D2', // Tone nâu nhẹ hơn
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2C9B0',
   },
   statCard: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 15,
     alignItems: 'center',
-    elevation: 2,
-    shadowColor: '#000',
+    elevation: 4,
+    shadowColor: '#8B5E34', // Màu bóng tone nâu
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   statNumber: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
+    color: '#8B5E34',
     marginVertical: 5,
   },
   statLabel: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: 13,
+    color: '#7A4E29',
   },
   filtersContainer: {
     flexDirection: 'row',
     padding: 15,
     gap: 10,
+    backgroundColor: '#E8D3C1',
   },
   filterButton: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 5,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 8,
+    gap: 8,
+    backgroundColor: '#FFFFFF',
+    padding: 12,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: Colors.light.tint,
+    borderColor: '#8B5E34',
   },
   activeFilter: {
-    backgroundColor: Colors.light.tint,
+    backgroundColor: '#8B5E34',
   },
   filterText: {
-    color: Colors.light.tint,
-    fontSize: 13,
-    fontWeight: '500',
+    color: '#8B5E34',
+    fontSize: 14,
+    fontWeight: '600',
   },
   activeFilterText: {
-    color: 'white',
+    color: '#FFFFFF',
   },
   ordersList: {
     padding: 15,
-    gap: 10,
+    gap: 15,
   },
   orderCard: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 15,
-    elevation: 2,
-    shadowColor: '#000',
+    elevation: 3,
+    shadowColor: '#8B5E34',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-  }
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: '#D1A77D', // Đường viền nhấn bên trái
+  },
 });
+
 

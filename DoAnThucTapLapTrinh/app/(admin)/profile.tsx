@@ -1,11 +1,7 @@
 import { supabase } from '@/lib/supabase';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors } from "@/constants/Colors";
 import Icon from "react-native-vector-icons/Ionicons";
-import RevenueScreen from '@/components/RevenueScreen';
-import { Platform } from 'react-native';
-
 
 const ProfileScreen = () => {
   const router = useRouter();
@@ -21,11 +17,11 @@ const ProfileScreen = () => {
     {
       section: 'Management',
       items: [
-        { icon: 'fast-food-outline', label: 'Products' },
-        { icon: 'receipt-outline', label: 'Orders' },
-        { icon: 'cash-outline', label: 'Revenue', onPress: () => router.push('/(admin)/menu/revenue') }
-      ]
-    }
+        { icon: 'fast-food-outline', label: 'Products', onPress: () => {} },
+        { icon: 'receipt-outline', label: 'Orders', onPress: () => {} },
+        { icon: 'cash-outline', label: 'Revenue', onPress: () => router.push('/(admin)/menu/revenue') },
+      ],
+    },
   ];
 
   return (
@@ -34,10 +30,10 @@ const ProfileScreen = () => {
       <View style={styles.header}>
         <View style={styles.userInfo}>
           <View style={styles.avatar}>
-            <Icon name="person" size={30} color="#666" />
+            <Icon name="person" size={30} color="#B89E8F" />
           </View>
           <View>
-            <Text style={styles.greeting}>Hello,</Text>
+            <Text style={styles.greeting}>Welcome Back,</Text>
             <Text style={styles.name}>Admin</Text>
           </View>
         </View>
@@ -45,14 +41,9 @@ const ProfileScreen = () => {
 
       {/* Quick Actions */}
       <View style={styles.quickActions}>
-        {[
-          { label: 'Products', icon: 'cube-outline' },
-          { label: 'Orders', icon: 'receipt-outline' },
-          { label: 'Settings', icon: 'settings-outline' },
-          { label: 'Analytics', icon: 'stats-chart-outline' }
-        ].map((action, index) => (
+        {[{ label: 'Products', icon: 'cube-outline' }, { label: 'Orders', icon: 'receipt-outline' }, { label: 'Settings', icon: 'settings-outline' }, { label: 'Analytics', icon: 'stats-chart-outline' }].map((action, index) => (
           <TouchableOpacity key={index} style={styles.actionButton}>
-            <Icon name={action.icon} size={24} color={Colors.light.tint} />
+            <Icon name={action.icon} size={24} color="#A47551" />
             <Text style={styles.actionText}>{action.label}</Text>
           </TouchableOpacity>
         ))}
@@ -63,14 +54,10 @@ const ProfileScreen = () => {
         <View key={index} style={styles.section}>
           <Text style={styles.sectionTitle}>{section.section}</Text>
           {section.items.map((item, itemIndex) => (
-            <TouchableOpacity
-              key={itemIndex}
-              style={styles.menuItem}
-              onPress={item.onPress} // Thêm dòng này
-            >
-              <Icon name={item.icon} size={22} color="#666" style={styles.menuIcon} />
+            <TouchableOpacity key={itemIndex} style={styles.menuItem} onPress={item.onPress}>
+              <Icon name={item.icon} size={22} color="#B89E8F" style={styles.menuIcon} />
               <Text style={styles.menuText}>{item.label}</Text>
-              <Icon name="chevron-forward" size={20} color="#999" />
+              <Icon name="chevron-forward" size={20} color="#B89E8F" />
             </TouchableOpacity>
           ))}
         </View>
@@ -78,7 +65,7 @@ const ProfileScreen = () => {
 
       {/* Sign Out Button */}
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-        <Icon name="log-out-outline" size={22} color="#FF4444" />
+        <Icon name="log-out-outline" size={22} color="#FF6F61" />
         <Text style={styles.signOutText}>Sign Out</Text>
       </TouchableOpacity>
 
@@ -91,21 +78,20 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F7E8DF',
   },
   header: {
-    backgroundColor: 'white',
+    backgroundColor: '#B89E8F',
     padding: 20,
-    paddingTop: 60, // Increased top padding
-    marginTop: Platform.OS === 'ios' ? 50 : 30, // Add extra margin for iOS devices
+    paddingTop: Platform.OS === 'ios' ? 70 : 50,
+    marginBottom: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    elevation: 5,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   userInfo: {
     flexDirection: 'row',
@@ -113,56 +99,59 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#f0f0f0',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#DFC4B5',
     justifyContent: 'center',
     alignItems: 'center',
   },
   greeting: {
     fontSize: 16,
-    color: '#666',
+    color: '#F4F1EE',
   },
   name: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: Colors.light.tint,
+    color: '#FFF',
   },
   quickActions: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     padding: 15,
-    justifyContent: 'space-around',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    borderRadius: 20,
+    elevation: 3,
   },
   actionButton: {
     alignItems: 'center',
     gap: 5,
   },
   actionText: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#6B4E3D',
   },
   section: {
-    backgroundColor: 'white',
-    marginTop: 15,
+    backgroundColor: '#FFF',
+    margin: 15,
+    padding: 10,
+    borderRadius: 15,
+    elevation: 3,
   },
   sectionTitle: {
-    padding: 15,
-    paddingBottom: 5,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
-    color: '#666',
+    color: '#A47551',
+    marginBottom: 10,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    backgroundColor: 'white',
+    paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#E8DED2',
   },
   menuIcon: {
     marginRight: 15,
@@ -170,21 +159,24 @@ const styles = StyleSheet.create({
   menuText: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    fontWeight: '500',
+    color: '#6B4E3D',
   },
   signOutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 15,
     padding: 15,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    backgroundColor: '#FFF',
+    marginHorizontal: 20,
+    borderRadius: 10,
+    elevation: 3,
   },
   signOutText: {
     marginLeft: 15,
     fontSize: 16,
-    color: '#FF4444',
+    color: '#FF6F61',
+    fontWeight: '600',
   },
 });
 

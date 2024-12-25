@@ -16,22 +16,22 @@ export type Product = {
   price: number;
 };
 
-export type PizzaSize = "S" | "M" | "L" | "XL";
+export type Size = "S" | "M" | "L" | "XL";
 
 export type CartItem = {
   id: string;
   product: Product;
   product_id: number;
-  size: PizzaSize;
+  size: Size;
   quantity: number;
 };
 
-export type OrderStatus = "New" | "Cooking" | "Delivering" | "Delivered";
+export type OrderStatus = "New" | "Cooking" | "Delivered";
 
 export const OrderStatusList: OrderStatus[] = [
   "New",
   "Cooking",
-  "Delivering",
+ 
   "Delivered",
 ];
 
@@ -40,7 +40,7 @@ export type OrderItem = {
   product_id: number;
   products: Product;
   order_id: number;
-  size: PizzaSize;
+  size: Size;
   quantity: number;
 };
 
@@ -50,6 +50,5 @@ export type Order = {
   total: number;
   user_id: string;
   status: OrderStatus;
-
   order_items?: OrderItem[];
 };

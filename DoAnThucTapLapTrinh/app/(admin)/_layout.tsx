@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 import { Colors } from "@/constants/Colors";
 
 function TabBarIcon(props: {
@@ -16,10 +16,16 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.light.background,
-        tabBarInactiveTintColor: 'gainsboro',
+        tabBarActiveTintColor: '#FFF5E1', 
+        tabBarInactiveTintColor: '#A68A64', 
         tabBarStyle: {
-          backgroundColor: Colors.light.tint,
+          backgroundColor: '#8C6239', 
+          borderTopWidth: 0, 
+          elevation: 4, 
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
         },
       }}
     >
@@ -39,11 +45,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="orders"
         options={{
-          title: 'Orders',
+          title: "Orders",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
       />
+
       <Tabs.Screen
         name="revenue/index"
         options={{
@@ -52,22 +59,25 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="money" color={color} />, // Sử dụng biểu tượng từ FontAwesome
         }}
       />
-        <Tabs.Screen
+
+      <Tabs.Screen
         name="profile"
         options={{
-          headerShown: false, 
-          title:'Profile',
+          headerShown: false,
+          title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />, // Vẫn hiển thị biểu tượng
         }}
       />
-      <Tabs.Screen
-  name="musicQueue"
-  options={{
-    title: "Music Queue",
-    tabBarIcon: ({ color }) => <FontAwesome name="music" color={color}  />,
-  }}
-/>
 
+      <Tabs.Screen
+        name="musicQueue/index"
+        options={{
+          title: "Music Queue",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="music" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -58,30 +58,34 @@ function SignUpScreen() {
       if (error) throw error;
   
       // Lấy `userId` từ phản hồi
-      const userId = data.user?.id;
-  
-      if (userId) {
-        // Thêm dữ liệu vào bảng `profiles`
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .insert([
-            {
-              id: userId,
-              full_name: fullName,
-              avatar_url: "",
-              role: "user",
-              updated_at: new Date().toISOString(),
-              username: username,
-              website: website || "", // Nếu không có, để trống
-            },
-          ]);
-  
-        if (profileError) throw profileError;
+      if (!data || !data.user) {
+        throw new Error("User registration failed. No user returned.");
+      }
+      
+      const userId = data.user.id;
+      
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert([
+          {
+            id: userId,
+            full_name: fullName || null,
+            avatar_url: "",
+            role: "user",
+            updated_at: new Date().toISOString(),
+            username: username || null,
+            website: website || null,
+          },
+        ]);
+      
+      if (profileError) {
+        console.error("Error inserting profile:", profileError);
+        throw profileError;
       }
   
       Alert.alert(
         "Success",
-        "Account created successfully! Please check your email to verify your account.",
+        "Account created successfully!",
         [{ text: "OK", onPress: () => router.push('/(auth)/sign-in') }]
       );
     } catch (error) {
@@ -218,12 +222,12 @@ function SignUpScreen() {
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
     padding: 24,
+    backgroundColor: '#FDF3E7', // Tone màu nâu nhạt làm nền
   },
   contentContainer: {
     width: '100%',
@@ -231,37 +235,49 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   headerContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 32,
   },
   logo: {
-    width: width * 0.3,
-    height: width * 0.3,
+    width: 100,
+    height: 100,
     marginBottom: 16,
+    borderRadius: 50,
+    backgroundColor: '#D7BFAE',
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.primary,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#6F4E37', // Tone nâu đậm
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666",
+    color: '#8C6E58',
   },
   formContainer: {
-    width: "100%",
-    maxWidth: 400,
-    alignSelf: "center",
+    backgroundColor: '#FFF7EE', // Màu nền nhạt hơn
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F3EDE4', // Tone nâu rất nhạt
     borderRadius: 12,
     marginBottom: 16,
     paddingHorizontal: 16,
     height: 50,
+    borderWidth: 1,
+    borderColor: '#D7BFAE', // Viền nâu nhạt
   },
   inputIcon: {
     marginRight: 12,
@@ -269,55 +285,70 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
+    color: '#5A3E2B', // Màu chữ nâu đậm
   },
   errorText: {
-    color: "red",
+    color: '#FF4D4D',
     marginBottom: 16,
-    textAlign: "center",
+    textAlign: 'center',
+    fontWeight: '600',
   },
   signUpButton: {
     height: 50,
     borderRadius: 12,
+    backgroundColor: '#6F4E37', // Nút nâu đậm
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 24,
   },
   divider: {
     flex: 1,
     height: 1,
-    backgroundColor: "#ddd",
+    backgroundColor: '#D7BFAE', // Đường kẻ nâu nhạt
   },
   dividerText: {
     marginHorizontal: 16,
-    color: "#666",
+    color: '#8C6E58',
+    fontWeight: '500',
   },
   socialContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     gap: 16,
   },
   socialButton: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "#f5f5f5",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#F3EDE4',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   signInContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
   },
   signInText: {
-    color: "#666",
+    color: '#8C6E58',
+    fontSize: 14,
   },
   signInLink: {
-    color: Colors.primary,
-    fontWeight: "bold",
+    color: '#6F4E37',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
 });
 

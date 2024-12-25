@@ -20,7 +20,7 @@ const ProfileScreen = () => {
           .from('profiles')
           .select('*')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
         setUserProfile(data);

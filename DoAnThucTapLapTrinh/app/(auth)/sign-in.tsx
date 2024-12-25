@@ -67,7 +67,7 @@ function SignInScreen() {
       <View style={styles.contentContainer}>
         <View style={styles.headerContainer}>
           <Image
-            source={require("@/assets/images/pizza-logo.png")}
+            source={require("@/assets/images/logo.png")}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -144,12 +144,12 @@ function SignInScreen() {
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
     padding: 24,
+    backgroundColor: '#FAF3E0', // Light beige background
   },
   contentContainer: {
     width: '100%',
@@ -157,90 +157,119 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   headerContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 32,
   },
   logo: {
     width: width * 0.3,
     height: width * 0.3,
     marginBottom: 16,
+    tintColor: '#8C6239', // Apply a soft brown tint to the logo
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.primary,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#8C6239', // Rich brown color for the title
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666",
+    color: '#A58E6F', // Subtle brown shade for the subtitle
   },
   formContainer: {
-    width: "100%",
+    width: '100%',
     maxWidth: 400,
-    alignSelf: "center",
+    alignSelf: 'center',
+    backgroundColor: '#FFF7E6', // Soft cream background for form
+    borderRadius: 16,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FAE5D3', // Beige input background
     borderRadius: 12,
     marginBottom: 16,
     paddingHorizontal: 16,
     height: 50,
+    borderWidth: 1,
+    borderColor: '#E0C3A4',
   },
   inputIcon: {
     marginRight: 12,
+    color: '#8C6239', // Brown icon color
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
+    color: '#6B4A32', // Slightly darker brown for text input
   },
   signInButton: {
     height: 50,
     borderRadius: 12,
+    backgroundColor: '#8C6239', // Deep brown button
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  signInButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 24,
   },
   divider: {
     flex: 1,
     height: 1,
-    backgroundColor: "#ddd",
+    backgroundColor: '#D8C1A5',
   },
   dividerText: {
     marginHorizontal: 16,
-    color: "#666",
+    color: '#6B4A32',
+    fontWeight: 'bold',
   },
   socialContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     gap: 16,
   },
   socialButton: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "#f5f5f5",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#F2E1CF', // Light beige for social buttons
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   signUpContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
   },
   signUpText: {
-    color: "#666",
+    color: '#6B4A32',
   },
   signUpLink: {
-    color: Colors.primary,
-    fontWeight: "bold",
+    color: '#8C6239',
+    fontWeight: 'bold',
   },
 });
+
+
 
 export default SignInScreen;
 

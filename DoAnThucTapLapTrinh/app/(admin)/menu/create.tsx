@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useUpdateProduct } from "@/api/products";
 import { useDeleteProduct } from "@/api/products";
 
-export const defaultPizzaImage = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
+export const defaultPizzaImage = "https://cdn-icons-png.flaticon.com/512/924/924514.png";
 
 const Create = () => {
  const [name, setName] = useState("");
@@ -233,7 +233,7 @@ const confirmDelete = () => {
            <View style={styles.categoryContainer}>
              <Text style={styles.categoryLabel}>Category</Text>
              <View style={styles.categoryButtonsContainer}>
-               {["Pizza", "Drinks", "Desserts", "Sides"].map((cat) => (
+               {["Coffee", "Juice", "Capuchino"].map((cat) => (
                  <TouchableOpacity
                    key={cat}
                    style={[
@@ -276,165 +276,181 @@ const confirmDelete = () => {
 };
 
 const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   backgroundColor: '#fff',
- },
- content: {
-   flex: 1,
- },
- heroSection: {
-   height: 250,
-   backgroundColor: Colors.light.tint,
-   justifyContent: 'center',
-   alignItems: 'center',
-   borderBottomLeftRadius: 30,
-   borderBottomRightRadius: 30,
-   shadowColor: "#000",
-   shadowOffset: {
-     width: 0,
-     height: 4,
-   },
-   shadowOpacity: 0.3,
-   shadowRadius: 4.65,
-   elevation: 8,
- },
- imageWrapper: {
-   position: 'relative',
-   width: 180,
-   height: 180,
-   borderRadius: 90,
-   backgroundColor: '#fff',
-   padding: 5,
-   shadowColor: "#000",
-   shadowOffset: {
-     width: 0,
-     height: 2,
-   },
-   shadowOpacity: 0.25,
-   shadowRadius: 3.84,
-   elevation: 5,
- },
- textButton: {
-  alignSelf: 'center',
-  fontWeight: 'bold',
-  color: Colors.light.tint,
-  marginVertical: 10,
-},
- image: {
-   width: '100%',
-   height: '100%',
-   borderRadius: 90,
- },
- uploadOverlay: {
-   position: 'absolute',
-   right: 10,
-   bottom: 10,
-   backgroundColor: Colors.light.tint,
-   width: 40,
-   height: 40,
-   borderRadius: 20,
-   justifyContent: 'center',
-   alignItems: 'center',
-   shadowColor: "#000",
-   shadowOffset: {
-     width: 0,
-     height: 2,
-   },
-   shadowOpacity: 0.25,
-   shadowRadius: 3.84,
-   elevation: 5,
- },
- formSection: {
-   flex: 1,
-   marginTop: -20,
-   backgroundColor: '#fff',
-   borderTopLeftRadius: 30,
-   borderTopRightRadius: 30,
-   padding: 20,
- },
- formHeader: {
-   marginBottom: 25,
-   paddingTop: 10,
- },
- formTitle: {
-   fontSize: 24,
-   fontWeight: 'bold',
-   color: '#333',
-   textAlign: 'center',
- },
- formSubtitle: {
-   fontSize: 14,
-   color: '#666',
-   textAlign: 'center',
-   marginTop: 5,
- },
- inputGroup: {
-   marginBottom: 20,
- },
- inputWrapper: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   backgroundColor: '#f8f9fa',
-   borderRadius: 12,
-   marginBottom: 15,
-   paddingHorizontal: 15,
-   borderWidth: 1,
-   borderColor: '#e9ecef',
- },
- inputIcon: {
-   marginRight: 10,
- },
- input: {
-   flex: 1,
-   paddingVertical: 15,
-   fontSize: 16,
-   color: '#333',
- },
- errorText: {
-   color: '#FF6B6B',
-   fontSize: 14,
-   marginTop: 5,
-   textAlign: 'center',
- },
- button: {
-   marginTop: 10,
-   borderRadius: 12,
-   paddingVertical: 15,
- },
- categoryContainer: {
-  marginBottom: 15,
-},
-categoryLabel: {
-  fontSize: 16,
-  fontWeight: '600',
-  color: '#333',
-  marginBottom: 8,
-},
-categoryButtonsContainer: {
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-},
-categoryButton: {
-  paddingVertical: 8,
-  paddingHorizontal: 16,
-  borderRadius: 20,
-  borderWidth: 1,
-  borderColor: Colors.light.tint,
-  marginBottom: 8,
-},
-categoryButtonActive: {
-  backgroundColor: Colors.light.tint,
-},
-categoryButtonText: {
-  color: Colors.light.tint,
-  fontSize: 14,
-  fontWeight: '500',
-},
-categoryButtonTextActive: {
-  color: 'white',
-},
+  container: {
+    flex: 1,
+    backgroundColor: '#FAF3E0', // Tone màu nâu nhạt làm nền
+  },
+  content: {
+    flex: 1,
+  },
+  heroSection: {
+    height: 260,
+    backgroundColor: '#A47551', // Nâu đậm làm nổi bật phần hero
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  imageWrapper: {
+    position: 'relative',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#FFF5E4',
+    padding: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 90,
+  },
+  uploadOverlay: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    backgroundColor: '#B28768', // Nâu sáng hơn để nổi bật nút tải lên
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  formSection: {
+    flex: 1,
+    marginTop: -20,
+    backgroundColor: '#FFF5E4', // Tone nâu nhẹ
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4.65,
+    elevation: 6,
+  },
+  formHeader: {
+    marginBottom: 25,
+    paddingTop: 10,
+  },
+  formTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#5E3C23', // Nâu đậm để làm nổi bật tiêu đề
+    textAlign: 'center',
+  },
+  formSubtitle: {
+    fontSize: 14,
+    color: '#8C6A53', // Nâu trung tính
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FAEDE1',
+    borderRadius: 15,
+    marginBottom: 15,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: '#E5C8B5',
+  },
+  inputIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    paddingVertical: 15,
+    fontSize: 16,
+    color: '#5E3C23',
+  },
+  button: {
+    marginTop: 10,
+    borderRadius: 12,
+    paddingVertical: 15,
+    backgroundColor: '#A47551',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFF5E4',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  textButton: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    color: '#A47551',
+    marginVertical: 10,
+  },
+  categoryContainer: {
+    marginBottom: 15,
+  },
+  categoryLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#5E3C23',
+    marginBottom: 8,
+  },
+  categoryButtonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  categoryButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#A47551',
+    marginBottom: 8,
+  },
+  categoryButtonActive: {
+    backgroundColor: '#A47551',
+  },
+  categoryButtonText: {
+    color: '#A47551',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  categoryButtonTextActive: {
+    color: 'white',
+  },
+  errorText: {
+    color: '#FF6B6B',
+    fontSize: 14,
+    marginTop: 5,
+    textAlign: 'center',
+  },
 });
 
 export default Create;

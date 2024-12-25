@@ -41,7 +41,6 @@ import {
     switch(status) {
       case 'New': return 'star-outline';
       case 'Cooking': return 'flame-outline';
-      case 'Delivering': return 'bicycle-outline';
       case 'Delivered': return 'checkmark-circle-outline';
       default: return 'information-circle-outline';
     }
@@ -49,15 +48,20 @@ import {
  
   return (
     <View style={styles.container}>
-      <Stack.Screen 
-        options={{ 
-          title: `Order #${id}`,
-          headerStyle: {
-            backgroundColor: Colors.light.tint,
-          },
-          headerTintColor: '#fff',
-        }} 
-      />
+     <Stack.Screen 
+  options={{ 
+    title: `Order #${id}`,
+    headerStyle: {
+      backgroundColor: '#6D4C41', // Màu nâu đậm
+    },
+    headerTintColor: '#FFF', // Màu chữ trắng
+    headerTitleStyle: {
+      fontWeight: 'bold', // Làm tiêu đề in đậm
+      fontSize: 20, // Tăng kích thước tiêu đề
+    },
+  }} 
+/>
+
  
       <View style={styles.statusBar}>
         <View style={styles.statusHeader}>
@@ -129,11 +133,10 @@ import {
     </View>
   );
  };
- 
  const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FAF3E6', // Màu nền kem sáng
   },
   loader: {
     flex: 1,
@@ -142,91 +145,139 @@ import {
   },
   errorText: {
     textAlign: 'center',
-    color: 'red',
+    color: '#B22222', // Màu đỏ trầm
+    fontSize: 16,
+    fontWeight: '600',
     margin: 20,
   },
   statusBar: {
-    backgroundColor: 'white',
-    padding: 15,
-    elevation: 2,
+    backgroundColor: '#FFF',
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D7CCC8',
+    elevation: 3,
   },
   statusHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
     marginBottom: 15,
+    gap: 8,
   },
   statusTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#6D4C41', // Nâu đậm
   },
   statusContainer: {
-    paddingVertical: 5,
-    gap: 10,
+    flexDirection: 'row',
+    gap: 12,
   },
   statusButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 25,
     borderWidth: 1,
-    borderColor: Colors.light.tint,
-    gap: 8,
-    elevation: 1,
+    borderColor: '#A1887F', // Nâu nhạt
+    backgroundColor: '#FFF8E1', // Nền nhạt hơn
+    elevation: 3,
+    shadowColor: '#8D6E63',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  activeStatusButton: {
+    backgroundColor: '#6D4C41', // Nâu đậm
+    borderColor: '#6D4C41',
   },
   statusText: {
-    fontWeight: '500',
+    fontWeight: '600',
+    fontSize: 14,
+    color: '#6D4C41',
+  },
+  activeStatusText: {
+    color: '#FFF',
   },
   summary: {
     flexDirection: 'row',
-    backgroundColor: 'white',
-    marginTop: 10,
-    padding: 15,
-    elevation: 2,
+    justifyContent: 'space-between',
+    backgroundColor: '#FFF',
+    marginTop: 15,
+    marginHorizontal: 15,
+    padding: 20,
+    borderRadius: 12,
+    elevation: 4,
+    shadowColor: '#8D6E63',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
   summaryItem: {
-    flex: 1,
     alignItems: 'center',
   },
   summaryLabel: {
-    color: '#666',
-    fontSize: 13,
+    color: '#8D6E63', // Nâu nhẹ
+    fontSize: 14,
+    fontWeight: '600',
   },
   summaryValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: Colors.light.tint,
-    marginTop: 4,
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#5D4037',
+    marginTop: 5,
   },
   content: {
     flex: 1,
     padding: 15,
+    backgroundColor: '#FAF3E6',
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#5D4037',
+    marginBottom: 15,
   },
   orderInfoCard: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-    elevation: 2,
+    backgroundColor: '#FFF',
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 15,
+    elevation: 4,
+    shadowColor: '#795548', // Bóng màu nâu
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
   orderItemCard: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-    elevation: 2,
+    backgroundColor: '#FFF',
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 15,
+    elevation: 3,
+    shadowColor: '#795548',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
   },
   orderList: {
     paddingBottom: 20,
   },
- });
- 
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#6D4C41',
+  },
+  statLabel: {
+    fontSize: 14,
+    color: '#8D6E63',
+  },
+  statContainer: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+});
+
+
  export default OrderDetailScreen;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, ImageBackground, Animated, FlatList, PanResponder, Text, Button } from 'react-native';
+import { StyleSheet, View, Dimensions, ImageBackground, Animated, FlatList, PanResponder, Text, Button, Platform, SafeAreaView, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQueue, removeSong } from '../redux/actions/musicActions';
 import io from 'socket.io-client';
@@ -13,7 +13,7 @@ const QueueScreen = () => {
     const [currentVideoId, setCurrentVideoId] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [animation, setAnimation] = useState(new Animated.Value(200));
-    const socket = io('ws://192.168.1.154:3000');
+    const socket = io('ws://192.168.1.4:3000');
     const user = useSelector((state) => state.auth?.user);
 
     useEffect(() => {
@@ -105,7 +105,7 @@ const QueueScreen = () => {
                     <View style={styles.controls}>
                         <Button
                             title={currentVideoId === item.videoId && isPlaying ? 'Đang phát' : 'Phát'}
-                            ornPress={() => playSong(item.videoId)}
+                            onPress={() => playSong(item.videoId)}
                             color="blue"
                         />
                         <Button
@@ -124,7 +124,7 @@ const QueueScreen = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.headerText}>Danh sách chờ</Text>
 
             {queue.length === 0 ? (
@@ -156,7 +156,7 @@ const QueueScreen = () => {
                     <Button title="Dừng" onPress={stopSong} color="red" />
                 </Animated.View>
             )}
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight + 10 : 30, // Thêm khoảng cách cho Android và iOS
         backgroundColor: '#FFFFFF',
     },
     headerText: {

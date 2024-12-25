@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { useInsertOrderItems } from '@/api/order-items';
 import { Alert } from 'react-native';
 import { useAddOrders } from "@/api/orders";
+import { supabase } from '@/lib/supabase';
 
 
 type Product = Tables<'products'>;
@@ -97,37 +98,64 @@ const CartProvider = ({ children }: PropsWithChildren) => {
   };
 
   // Hàm thanh toán (checkout)
-  const checkout = () => {
+  const checkout = async () => {
     const total = getTotalCartAmount();
+  
     if (!seatNumber) {
       Alert.alert("Chưa chọn ghế", "Vui lòng chọn ghế ngồi trước khi thanh toán.");
       return;
     }
-    addOrder(
-      { total, status: "New", seat_number: seatNumber }, // Thêm ghế vào đơn hàng
-      {
-        onSuccess: (data) => {
-          console.log("Order added successfully:", data);
-          const orderItems = items.map((item) => ({
-            order_id: data.id,
-            product_id: item.product_id,
-            quantity: item.quantity,
-            size: item.size,
-          }));
-          insertOrderItems(orderItems, {
-            onSuccess: () => {
-              console.log("Order items added successfully");
-              setItems([]);
-              setSeatNumber(null); // Reset ghế sau khi thanh toán
-              router.push(`/(user)/orders/${data.id}`);
-            },
-            onError: (error) => console.error("Error adding order items:", error),
-          });
-        },
-        onError: (error) => console.error("Error adding order:", error),
-      }
-    );
+  
+    if (items.length === 0) {
+      Alert.alert("Giỏ hàng trống", "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.");
+      return;
+    }
+  
+    const user = supabase.auth.user(); // Lấy thông tin user từ Supabase
+  
+    if (!user) {
+      Alert.alert("Error", "Không tìm thấy thông tin người dùng.");
+      return;
+    }
+  
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .insert({
+          total,
+          status: 'New',
+          seat_number: seatNumber,
+          user_id: user.id, // Thêm user_id
+        })
+        .single();
+  
+      if (error) throw error;
+  
+      const orderItems = items.map((item) => ({
+        order_id: data.id,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        size: item.size,
+      }));
+  
+      const { error: orderItemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+  
+      if (orderItemsError) throw orderItemsError;
+  
+      console.log("Order and items added successfully");
+      setItems([]);
+      setSeatNumber(null);
+      router.push(`/(user)/orders/${data.id}`);
+    } catch (error) {
+      console.error("Error during checkout:", error.message);
+    }
   };
+  
+  
+  
+
   
   
 

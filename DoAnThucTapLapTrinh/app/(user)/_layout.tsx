@@ -47,12 +47,22 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="music"
+        name="music/index"
         options={{
           title: "Music",
           headerShown: false, // Ẩn header nếu không cần
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="music" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="music/queue"
+        options={{
+          title: "Music Queue",
+          headerShown: false, // Ẩn header nếu không cần
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="play" color={color} />
           ),
         }}
       />

@@ -308,26 +308,30 @@ const ProductDetailScreen = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAF3E0', // Màu nền tone nâu sáng
   },
   imageSection: {
     position: 'relative',
     height: 300,
-    backgroundColor: Colors.light.tint,
+    backgroundColor: '#D7B899', // Màu nâu đậm cho phần hình ảnh
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: '90%',
+    height: '90%',
+    borderRadius: 15,
+    borderWidth: 5,
+    borderColor: '#F5DEB3',
   },
   changeImageButton: {
     position: 'absolute',
     bottom: 20,
     right: 20,
-    backgroundColor: Colors.light.tint,
+    backgroundColor: '#8B4513', // Màu nâu đậm cho nút đổi ảnh
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
@@ -335,15 +339,15 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   changeImageText: {
-    color: '#fff',
+    color: '#FFF',
     fontWeight: '600',
   },
   contentSection: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF5E4', // Nền sáng hơn cho phần nội dung
     marginTop: -20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     padding: 20,
   },
   form: {
@@ -353,19 +357,24 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   label: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '600',
-    color: '#666',
+    color: '#8B4513', // Màu nâu cho tiêu đề
     marginLeft: 4,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#FFF5E4', // Màu nền nhẹ hơn
     borderRadius: 12,
     padding: 12,
     borderWidth: 1,
-    borderColor: '#e9ecef',
+    borderColor: '#D7B899',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   inputIcon: {
     marginRight: 10,
@@ -373,16 +382,25 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
+    color: '#8B4513',
   },
   actionButtons: {
     gap: 12,
     marginTop: 10,
   },
   saveButton: {
+    backgroundColor: '#8B4513', // Màu nâu đậm cho nút lưu
     borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  saveButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
   deleteButton: {
-    backgroundColor: '#FF4444',
+    backgroundColor: '#FF6F61', // Màu đỏ mềm cho nút xóa
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -390,27 +408,28 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     gap: 8,
   },
-  disabledButton: {
-    opacity: 0.7,
-  },
   deleteButtonText: {
-    color: '#fff',
+    color: '#FFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  disabledButton: {
+    opacity: 0.7,
   },
   details: {
     alignItems: 'center',
     gap: 12,
+    marginTop: 20,
   },
   productName: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#8B4513',
   },
   productPrice: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: Colors.light.tint,
+    color: '#D2691E', // Màu cam đậm hơn
   },
   statsContainer: {
     flexDirection: 'row',
@@ -426,12 +445,13 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#8B4513',
   },
   statLabel: {
     fontSize: 14,
-    color: '#666',
+    color: '#8B4513',
   },
 });
+
 
 export default ProductDetailScreen;
