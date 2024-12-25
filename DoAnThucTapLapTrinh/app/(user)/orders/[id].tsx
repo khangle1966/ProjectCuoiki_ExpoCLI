@@ -38,14 +38,6 @@ export default function OrderConfirmationScreen() {
   // Hàm lấy thông tin đơn hàng từ Supabase
   const fetchOrderDetails = async () => {
     try {
-      const user = supabase.auth.user(); // Lấy thông tin user từ Supabase
-  
-      if (!user) {
-        console.error("Không tìm thấy thông tin người dùng.");
-        setOrder(null);
-        return;
-      }
-  
       const { data, error } = await supabase
         .from('orders')
         .select(`
@@ -65,22 +57,21 @@ export default function OrderConfirmationScreen() {
             )
           )
         `)
-        .eq('id', id) // Lấy đơn hàng theo ID
-        .eq('user_id', user.id) // Chỉ lấy đơn hàng của user hiện tại
+        .eq('id', id)
         .single();
-  
+
       if (error) {
         console.error('Error fetching order details:', error);
         setOrder(null);
         return;
       }
-  
+
       // Xử lý dữ liệu sản phẩm trong đơn hàng
       const itemsWithProducts = data.order_items.map((item) => ({
         ...item,
         product: item.products,
       }));
-  
+
       // Lưu thông tin đơn hàng vào state
       setOrder({
         ...data,
@@ -93,7 +84,6 @@ export default function OrderConfirmationScreen() {
       setLoading(false);
     }
   };
-  
   
   
 

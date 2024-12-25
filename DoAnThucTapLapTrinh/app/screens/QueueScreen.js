@@ -13,7 +13,7 @@ const QueueScreen = () => {
     const [currentVideoId, setCurrentVideoId] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [animation, setAnimation] = useState(new Animated.Value(200));
-    const socket = io('ws://192.168.1.4:3000');
+    const socket = io('ws://10.102.71.75:3000');
     const user = useSelector((state) => state.auth?.user);
 
     useEffect(() => {

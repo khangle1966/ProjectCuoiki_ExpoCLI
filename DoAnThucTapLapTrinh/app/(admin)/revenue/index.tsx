@@ -1,10 +1,17 @@
-import { View, Text, StyleSheet, ScrollView, Animated, Dimensions } from 'react-native';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Animated,
+  Dimensions,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { supabase } from '@/lib/supabase';
-import { Colors } from "@/constants/Colors";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 const { width } = Dimensions.get('window');
@@ -45,10 +52,10 @@ const RevenueScreen = () => {
   const fetchRevenue = async () => {
     try {
       setIsLoading(true);
-      
+
       const startOfMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
       const endOfMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
-      
+
       const { data: monthlyData, error: monthlyError } = await supabase
         .from('orders')
         .select('total')
@@ -74,11 +81,10 @@ const RevenueScreen = () => {
 
       const monthlyTotal = monthlyData.reduce((sum, order) => sum + (order.total || 0), 0);
       const dailyTotal = dailyData.reduce((sum, order) => sum + (order.total || 0), 0);
-      
+
       setMonthlyRevenue(monthlyTotal);
       setDailyRevenue(dailyTotal);
       setOrderCount(dailyData.length);
-      
     } catch (error) {
       console.error('Error fetching revenue:', error);
     } finally {
@@ -91,11 +97,11 @@ const RevenueScreen = () => {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     }).format(amount);
   };
 
-  const StatCard = ({ label, value, icon, color, delay }) => (
+  const StatCard = ({ label, value, icon, color }) => (
     <Animated.View
       style={[
         styles.statCard,
@@ -120,15 +126,13 @@ const RevenueScreen = () => {
     <ScrollView style={styles.container}>
       <View style={styles.backgroundCircle} />
       <View style={styles.backgroundCircle2} />
-      
+
       <View style={styles.header}>
-        <Animated.Text style={[styles.headerTitle, { opacity, transform: [{ translateY }] }]}>
-          Revenue Analytics
-        </Animated.Text>
+        <Animated.Text style={[styles.headerTitle, { opacity, transform: [{ translateY }] }]}>Revenue Analytics</Animated.Text>
       </View>
 
       <View style={styles.dateContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowMonthPicker(!showMonthPicker)}
         >
@@ -138,14 +142,12 @@ const RevenueScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(!showDatePicker)}
         >
           <Icon name="today-outline" size={22} color="#333" />
-          <Text style={styles.dateText}>
-            {selectedDate.toLocaleDateString('en-US')}
-          </Text>
+          <Text style={styles.dateText}>{selectedDate.toLocaleDateString('en-US')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -181,33 +183,31 @@ const RevenueScreen = () => {
         />
       )}
 
-      <View style={styles.statsContainer}>
-        <StatCard
-          label="Monthly Revenue"
-          value={formatCurrency(monthlyRevenue)}
-          icon="bar-chart"
-          color="#FFE5E5"
-          delay={0}
-        />
-        <StatCard
-          label="Daily Revenue"
-          value={formatCurrency(dailyRevenue)}
-          icon="trending-up"
-          color="#E5F4FF"
-          delay={100}
-        />
-        <StatCard
-          label="Today's Orders"
-          value={orderCount.toString()}
-          icon="document-text"
-          color="#E5FFE5"
-          delay={200}
-        />
-      </View>
+<View style={styles.statsContainer}>
+  <StatCard
+    label="Monthly Revenue"
+    value={formatCurrency(monthlyRevenue)}
+    icon="bar-chart"
+    color="#D4A373" // Nâu ánh vàng
+  />
+  <StatCard
+    label="Daily Revenue"
+    value={formatCurrency(dailyRevenue)}
+    icon="trending-up"
+    color="#C68B59" // Nâu caramel
+  />
+  <StatCard
+    label="Today's Orders"
+    value={orderCount.toString()}
+    icon="document-text"
+    color="#8C5E58" // Nâu đỏ gụ
+  />
+</View>
+
 
       {isLoading && (
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>Loading...</Text>
+          <ActivityIndicator size="large" color="#333" />
         </View>
       )}
     </ScrollView>
@@ -217,110 +217,112 @@ const RevenueScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F5F3EF',
   },
   backgroundCircle: {
     position: 'absolute',
-    top: -150,
-    right: -100,
     width: 300,
     height: 300,
+    backgroundColor: '#D9C3B6',
     borderRadius: 150,
-    backgroundColor: '#FFE5E5',
-    opacity: 0.5,
+    top: -50,
+    left: -50,
+    opacity: 0.4,
   },
   backgroundCircle2: {
     position: 'absolute',
-    top: -100,
-    left: -150,
     width: 250,
     height: 250,
+    backgroundColor: '#B8A091',
     borderRadius: 125,
-    backgroundColor: '#E5F4FF',
-    opacity: 0.5,
+    top: 400,
+    right: -70,
+    opacity: 0.4,
   },
   header: {
-    padding: 25,
-    paddingTop: 60,
+    marginTop: 60,
+    alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A3F35',
     textAlign: 'center',
   },
   dateContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    marginVertical: 20,
     paddingHorizontal: 20,
-    marginTop: 20,
   },
   datePickerButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    gap: 8,
-    flex: 0.48,
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#EFEFEF',
+    backgroundColor: '#E9DFD3',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    elevation: 3,
   },
   dateText: {
-    fontSize: 14,
-    color: '#000000',
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#4A3F35',
+    marginLeft: 10,
   },
   statsContainer: {
-    padding: 20,
-    gap: 20,
+    paddingHorizontal: 20,
     marginTop: 20,
   },
   statCard: {
-    borderRadius: 24,
+    marginBottom: 20,
+    borderRadius: 15,
+    elevation: 6,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 15,
-    elevation: 5,
+    shadowColor: '#4A3F35',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    padding: 15,
+    backgroundColor: '#FFFFFF', // Bị thay bởi màu động
+  },
+  statCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    padding: 15,
   },
   blurContainer: {
-    padding: 25,
-    backgroundColor: 'transparent',
+    padding: 15,
+    borderRadius: 15,
   },
   iconContainer: {
-    width: 45,
-    height: 45,
-    borderRadius: 22.5,
-    backgroundColor: '#333',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+    marginRight: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)', // Nền nhạt cho biểu tượng
   },
   statLabel: {
     fontSize: 16,
-    color: '#666',
-    marginBottom: 8,
-    fontWeight: '500',
+    fontWeight: '600',
+    color: '#FFFFFF', // Chữ màu trắng
+    marginBottom: 5,
   },
   statValue: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#333',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF', // Chữ màu trắng
   },
   loadingContainer: {
-    padding: 20,
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  loadingText: {
-    color: '#666',
-    fontSize: 16,
-  },
 });
+
+
 
 export default RevenueScreen;

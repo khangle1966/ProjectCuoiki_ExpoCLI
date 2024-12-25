@@ -13,7 +13,7 @@ const MusicQueue = () => {
     const [currentVideoId, setCurrentVideoId] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [animation, setAnimation] = useState(new Animated.Value(200));
-    const socket = io('ws://192.168.1.4:3000'); // Thay IP với địa chỉ thực tế của bạn
+    const socket = io('ws://10.102.71.75:3000'); // Thay IP với địa chỉ thực tế của bạn
     const user = useSelector((state) => state.auth?.user);
 
     useEffect(() => {
@@ -125,7 +125,7 @@ const MusicQueue = () => {
                     keyExtractor={(item) => item.videoId.toString()}
                 />
             )}
-
+        
             {isPlaying && currentVideoId && (
                 <Animated.View
                     {...panResponder.panHandlers}

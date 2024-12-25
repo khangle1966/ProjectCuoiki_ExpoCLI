@@ -98,60 +98,61 @@ const CartProvider = ({ children }: PropsWithChildren) => {
   };
 
   // Hàm thanh toán (checkout)
-  const checkout = async () => {
+  const checkout = () => {
     const total = getTotalCartAmount();
-  
+    setIsLoading(true); // Bắt đầu trạng thái loading
+
+    // Kiểm tra điều kiện
     if (!seatNumber) {
-      Alert.alert("Chưa chọn ghế", "Vui lòng chọn ghế ngồi trước khi thanh toán.");
-      return;
+        Alert.alert("Chưa chọn ghế", "Vui lòng chọn ghế ngồi trước khi thanh toán.");
+        setIsLoading(false);
+        return;
     }
-  
+
     if (items.length === 0) {
-      Alert.alert("Giỏ hàng trống", "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.");
-      return;
+        Alert.alert("Giỏ hàng trống", "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.");
+        setIsLoading(false);
+        return;
     }
-  
-    const user = supabase.auth.user(); // Lấy thông tin user từ Supabase
-  
-    if (!user) {
-      Alert.alert("Error", "Không tìm thấy thông tin người dùng.");
-      return;
-    }
-  
-    try {
-      const { data, error } = await supabase
-        .from('orders')
-        .insert({
-          total,
-          status: 'New',
-          seat_number: seatNumber,
-          user_id: user.id, // Thêm user_id
-        })
-        .single();
-  
-      if (error) throw error;
-  
-      const orderItems = items.map((item) => ({
-        order_id: data.id,
-        product_id: item.product_id,
-        quantity: item.quantity,
-        size: item.size,
-      }));
-  
-      const { error: orderItemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
-  
-      if (orderItemsError) throw orderItemsError;
-  
-      console.log("Order and items added successfully");
-      setItems([]);
-      setSeatNumber(null);
-      router.push(`/(user)/orders/${data.id}`);
-    } catch (error) {
-      console.error("Error during checkout:", error.message);
-    }
-  };
+
+    // Bước 1: Tạo đơn hàng
+    insertOrder(
+        { total, seat_number: seatNumber, status: "New" }, // Dữ liệu đơn hàng
+        {
+            onSuccess: (orderData) => {
+                // Bước 2: Tạo các mục đơn hàng từ giỏ hàng
+                const orderItems = items.map((item) => ({
+                    order_id: orderData.id,
+                    product_id: item.product_id,
+                    quantity: item.quantity,
+                    size: item.size,
+                }));
+
+                insertOrderItems(orderItems, {
+                    onSuccess: () => {
+                        // Thành công: Xóa giỏ hàng và chuyển hướng
+                        clearCart();
+                        setIsLoading(false);
+                        router.push(`/(user)/orders/${orderData.id}`);
+                    },
+                    onError: (error) => {
+                        // Xử lý lỗi khi thêm các mục đơn hàng
+                        console.error("Failed to add order items:", error.message);
+                        setIsLoading(false);
+                        Alert.alert("Error", "Failed to add items to the order.");
+                    },
+                });
+            },
+            onError: (error) => {
+                // Xử lý lỗi khi tạo đơn hàng
+                console.error("Failed to create order:", error.message);
+                setIsLoading(false);
+                Alert.alert("Error", "Failed to create order. Please try again.");
+            },
+        }
+    );
+};
+
   
   
   
