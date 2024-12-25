@@ -54,7 +54,7 @@ const addSongAPI = async (song) => {
             throw new Error('Bài hát đã tồn tại trong danh sách chờ!');
         }
         if (error.response?.status === 400) {
-            throw new Error('Bạn đã thêm quá 2 bài hát trong 5 giây, vui lòng thử lại sau!');
+            throw new Error('Bạn đã thêm quá 2 bài hát trong 30 giây, vui lòng thử lại sau!');
         }
         throw new Error(error.response?.data?.message || 'Có lỗi xảy ra khi thêm bài hát.');
     }

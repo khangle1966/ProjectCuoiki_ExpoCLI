@@ -93,7 +93,7 @@ export class MusicService {
     if (!limit) return false;
 
     // Kiểm tra xem đã 5 giây chưa
-    if (Date.now() - limit.lastAdded > 5000) {
+    if (Date.now() - limit.lastAdded > 30000) {
       // Reset nếu đã qua 5 giây
       this.ipLimits[ip] = { count: 0, lastAdded: Date.now() };
       return false;
@@ -112,7 +112,7 @@ export class MusicService {
     }
 
     const limit = this.ipLimits[ip];
-    if (currentTime - limit.lastAdded > 5000) {
+    if (currentTime - limit.lastAdded > 30000) {
       // Nếu đã qua 5 giây thì reset số bài hát
       this.ipLimits[ip] = { count: 1, lastAdded: currentTime };
     } else {

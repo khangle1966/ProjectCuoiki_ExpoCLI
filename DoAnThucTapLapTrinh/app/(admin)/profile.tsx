@@ -17,9 +17,9 @@ const ProfileScreen = () => {
     {
       section: 'Management',
       items: [
-        { icon: 'fast-food-outline', label: 'Products', onPress: () => {} },
-        { icon: 'receipt-outline', label: 'Orders', onPress: () => {} },
-        { icon: 'cash-outline', label: 'Revenue', onPress: () => router.push('/(admin)/menu/revenue') },
+        { icon: 'fast-food-outline', label: 'Products', onPress: () => router.push('/(admin)/menu/products') },
+      { icon: 'receipt-outline', label: 'Orders', onPress: () => router.push('/(admin)/orders/list/index') },
+      { icon: 'cash-outline', label: 'Revenue', onPress: () => router.push('/(admin)/menu/revenue') },
       ],
     },
   ];

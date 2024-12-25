@@ -233,7 +233,7 @@ const confirmDelete = () => {
            <View style={styles.categoryContainer}>
              <Text style={styles.categoryLabel}>Category</Text>
              <View style={styles.categoryButtonsContainer}>
-               {["Coffee", "Juice", "Capuchino"].map((cat) => (
+               {["Coffee", "Tea", "Nuocep"].map((cat) => (
                  <TouchableOpacity
                    key={cat}
                    style={[
